@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../services/recipe_api.dart';
 import '../models/recipe.dart';
+import '../widgets/recipe_card.dart';
 
 class RecipePage extends StatefulWidget {
   const RecipePage({super.key});
@@ -103,6 +104,28 @@ class _RecipePageState extends State<RecipePage> {
                 'Search for a recipe to get started!',
                 style: TextStyle(
                   fontSize: 18,
+                ),
+              ),
+            
+            if(!isLoading && recipes.isNotEmpty)
+
+              Expanded(
+                child: ListView.builder(
+
+                  itemCount: recipes.length,
+
+                  itemBuilder: (context, index) {
+
+                    final recipe = recipes[index];
+
+                    return RecipeCard(
+                      recipe: recipe,
+
+                      onTap: () {
+                        print(recipe.name);
+                      },
+                    );
+                  },
                 ),
               ),
           ],
