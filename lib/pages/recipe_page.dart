@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/recipe_api.dart';
 import '../models/recipe.dart';
 import '../widgets/recipe_card.dart';
+import 'recipe_details_page.dart';
 
 class RecipePage extends StatefulWidget {
   const RecipePage({super.key});
@@ -122,7 +123,11 @@ class _RecipePageState extends State<RecipePage> {
                       recipe: recipe,
 
                       onTap: () {
-                        print(recipe.name);
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                        RecipeDetailsPage(recipe: recipe),
+                        ),
+                        );
                       },
                     );
                   },
