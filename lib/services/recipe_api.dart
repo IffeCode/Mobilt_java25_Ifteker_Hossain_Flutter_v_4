@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../models/recipe.dart';
+
 class RecipeApi {
-  Future<List<dynamic>> searchRecipes(String query) async{
+  Future<List<Recipe>> searchRecipes(String query) async{
   
     final url = Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?s=$query');
 
@@ -11,7 +13,14 @@ class RecipeApi {
     if(response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      return data['meals'] ?? [];
+      if(data['meals'] == null) {
+        return [];
+      }
+
+      return (data['meals'] as List)
+      .map((meal) => Recipe.fromJson(meal))
+        .toList();
+
     } else {
       throw Exception('Failed to load recipes');
     }
