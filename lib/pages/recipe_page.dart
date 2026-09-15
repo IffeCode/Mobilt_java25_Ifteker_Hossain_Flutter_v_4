@@ -36,8 +36,16 @@ class _RecipePageState extends State<RecipePage> {
     try {
       final results = await recipeApi.searchRecipes(query);
 
+      List<Recipe> filteredRecipes = results;
+
+      if(vegetarianOnly) {
+        filteredRecipes = results.where((recipes) {
+          return recipes.category.toLowerCase() == 'vegetarian';
+        }).toList();
+      }
+
       setState(() {
-        recipes = results;
+        recipes = filteredRecipes;
         isLoading = false;
       });
     } catch (e) {
