@@ -5,6 +5,7 @@ import '../models/recipe.dart';
 import '../widgets/recipe_card.dart';
 import 'recipe_details_page.dart';
 
+// StatefulWidget används eftersom sidan innehåller data som kan ändras - veg till icke
 class RecipePage extends StatefulWidget {
   const RecipePage({super.key});
 
@@ -13,42 +14,56 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
+
+  // Används för att läsa texten från sökfältet
   final TextEditingController searchController = TextEditingController();
 
+  //Objekt som används för att kommunicera med Recipe Api:et
   final RecipeApi recipeApi = RecipeApi();
 
+  //Lista som innehåller recepten som ska visas
   List<Recipe> recipes = [];
 
+  //Är vegetarian filtret ativerat
   bool vegetarianOnly = false;
+  //Appen väntar på svar från API:et
   bool isLoading = false;
 
+  // Söker efter recept med hjälp av användarens sökning
   Future<void> searchRecipes() async {
+
     final query = searchController.text.trim();
 
     if (query.isEmpty) {
       return;
     }
 
+    // Visar att appen håller på att ladda data
     setState(() {
       isLoading = true;
     });
 
     try {
+      // Skickar sökningen till API:t och väntar på resultatet
       final results = await recipeApi.searchRecipes(query);
 
+      // Börjar med alla recept som API:t returnerade
       List<Recipe> filteredRecipes = results;
 
+      // Filtrerar resultaten om vegetarian-filtret är aktiverat
       if(vegetarianOnly) {
         filteredRecipes = results.where((recipes) {
           return recipes.category.toLowerCase() == 'vegetarian';
         }).toList();
       }
 
+      //Uppdaterar receptlistan
       setState(() {
         recipes = filteredRecipes;
         isLoading = false;
       });
     } catch (e) {
+      //Avslutar laddningen om API anropet misslyckas
       setState(() {
         isLoading = false;
       });
@@ -59,7 +74,11 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Scaffold fungerar som grundstruktur för sidan
     return Scaffold(
+
+      // AppBar visas längst upp på sidan
       appBar: AppBar(
         title: const Text('What2Eat'),
       ),

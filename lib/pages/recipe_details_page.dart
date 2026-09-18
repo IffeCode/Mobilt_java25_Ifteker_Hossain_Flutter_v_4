@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../models/recipe.dart';
 
+// StatelessWidget används eftersom sidan bara visar information och inte behöver ändra sin egen data
 class RecipeDetailsPage extends StatelessWidget{
+
+  // Tar emot receptet som ska visas på detaljsidan
   final Recipe recipe;
 
+  //Constructor för RecipeDetailPage
   const RecipeDetailsPage({
     super.key,
     required this.recipe,
@@ -12,15 +16,20 @@ class RecipeDetailsPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    // Scaffold fungerar som grundstruktur för sidan
     return Scaffold(
+      //AppBar visas längst upp på detaljsidan
       appBar: AppBar(
         title: Text(recipe.name),
       ),
 
+      // SingleChildScrollView gör att användaren kan scrolla
       body: SingleChildScrollView(
         child: Padding(padding: const EdgeInsets.all(16.0),
 
         child: Column(
+
+          // Placerar innehållet från vänster sida
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
@@ -28,6 +37,7 @@ class RecipeDetailsPage extends StatelessWidget{
               recipe.imageUrl,
               width: double.infinity,
               height: 250,
+              // Anpassar bilden så att hela området fylls
               fit: BoxFit.cover,
             ),
 
