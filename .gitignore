@@ -47,8 +47,8 @@ app.*.map.json
 # Widget Preview related
 .widget_preview/
 # test
-#/build/
-
+#/build/ ska bort när jag deployar med exempel vercel
+/build/
 !build/
 build/*
 !build/web/
