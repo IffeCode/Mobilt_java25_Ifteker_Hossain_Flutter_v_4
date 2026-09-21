@@ -5,14 +5,7 @@
 *.swp
 .DS_Store
 .atom/
-#/build/
 
-!build/
-build/*
-!build/web/
-!build/app/
-build/app/*
-!build/app/outputs
 .buildlog/
 .history
 .svn/
@@ -37,7 +30,7 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+#/build/
 /coverage/
 
 # Symbolication related
@@ -53,3 +46,12 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+#/build/
+
+!build/
+build/*
+!build/web/
+!build/app/
+build/app/*
+!build/app/outputs
